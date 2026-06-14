@@ -3,60 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Azure AI</title>
+
+<title>Azure AI - Find Your Azure</title>
 
 <style>
-body{
+
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
     background:#050b18;
     color:white;
     font-family:Arial,sans-serif;
-    text-align:center;
+}
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 40px;
+    background:rgba(5,11,24,0.85);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+.logo{
+    font-size:1.4rem;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.menu{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+}
+
+.lang{
+    color:#7ec8ff;
 }
 
 .hero{
     height:100vh;
+    background:url('hero.jpeg');
+    background-size:cover;
+    background-position:center;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
+    text-align:center;
+    padding:20px;
 }
 
-h1{
+.hero-content{
+    max-width:800px;
+}
+
+.hero h1{
     font-size:5rem;
-    margin:0;
+    letter-spacing:8px;
 }
 
-h2{
+.hero h2{
+    color:#7ec8ff;
+    margin-top:10px;
     font-weight:300;
-    color:#79bfff;
+}
+
+.hero p{
+    margin-top:25px;
+    font-size:1.2rem;
 }
 
 .button{
     display:inline-block;
-    margin-top:30px;
+    margin-top:35px;
     padding:15px 35px;
     border:1px solid #4ea6ff;
     color:white;
     text-decoration:none;
     border-radius:6px;
 }
+
+section{
+    max-width:1000px;
+    margin:auto;
+    padding:100px 30px;
+}
+
+section h2{
+    color:#7ec8ff;
+    margin-bottom:25px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.card{
+    background:#0b1427;
+    padding:25px;
+    border-radius:10px;
+}
+
+.footer-hero{
+    height:500px;
+    background:url('footer.jpeg');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.footer-hero h2{
+    font-size:3rem;
+}
+
+.footer-hero p{
+    margin-top:15px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:3rem;
+}
+
+.menu{
+    display:none;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
+<nav>
+    <div class="logo">AZURE AI</div>
+
+    <div class="menu">
+        <a href="#philosophy">Philosophy</a>
+        <a href="#sea">Built For The Sea</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <span class="lang">PT | EN</span>
+    </div>
+</nav>
+
 <section class="hero">
-    <h1>AZURE AI</h1>
-    <h2>Find Your Azure</h2>
 
-    <p>
-        Where sea, sky and decision come into balance.
-    </p>
+<div class="hero-content">
 
-    <a class="button" href="https://app.azureaiweather.com">
-        Launch Azure AI
-    </a>
+<h1>AZURE AI</h1>
+
+<h2>Find Your Azure</h2>
+
+<p>
+Where sea, sky and decision come into balance.
+</p>
+
+<a class="button"
+href="https://app.azureaiweather.com">
+Launch Azure AI
+</a>
+
+</div>
+
+</section>
+
+<section id="philosophy">
+
+<h2>The Search For Azure</h2>
+
+<p>
+For centuries, sailors searched for signs that would guide their journey.
+A clear horizon. Favourable winds. The confidence to continue.
+
+Today, the ocean remains the same.
+
+The way we understand it has changed.
+
+Azure AI combines marine weather, forecasts and artificial intelligence to help mariners navigate with greater confidence.
+</p>
+
+</section>
+
+<section id="sea">
+
+<h2>Built For The Sea</h2>
+
+<div class="features">
+
+<div class="card">
+🌊<br><br>
+Marine Weather Intelligence
+</div>
+
+<div class="card">
+🌬️<br><br>
+Wind & Sea State
+</div>
+
+<div class="card">
+🧭<br><br>
+Coastal Decision Support
+</div>
+
+<div class="card">
+🤖<br><br>
+AI Maritime Insights
+</div>
+
+</div>
+
+</section>
+
+<section id="ecosystem">
+
+<h2>Powered By FrontSea Intelligence</h2>
+
+<p>
+Azure AI is the first platform developed by FrontSea Intelligence.
+
+Our mission is to build intelligent maritime systems connecting weather, navigation and ocean intelligence through AI.
+</p>
+
+</section>
+
+<section class="footer-hero">
+
+<div>
+
+<h2>Find Your Azure</h2>
+
+<p>
+Every voyage begins with a decision.
+</p>
+
+<a class="button"
+href="https://app.azureaiweather.com">
+Launch Azure AI
+</a>
+
+</div>
+
 </section>
 
 </body>
