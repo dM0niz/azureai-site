@@ -1,522 +1,886 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Azure AI | Find Your Azure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Azure AI combines weather intelligence, marine forecasts and artificial intelligence to help mariners understand conditions at sea.">
+  <meta name="theme-color" content="#050b18">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050b18;
+      --text: #e8f2fc;
+      --text-muted: rgba(232, 242, 252, 0.62);
+      --text-soft: rgba(232, 242, 252, 0.9);
+      --azure: #7ec8ff;
+      --azure-bright: #5cbcff;
+      --azure-glow: rgba(126, 200, 255, 0.14);
+      --border: rgba(126, 200, 255, 0.12);
+      --border-hover: rgba(126, 200, 255, 0.28);
+      --card-bg: rgba(11, 20, 39, 0.72);
+      --section-gap: clamp(4.5rem, 9vw, 7rem);
+      --content-width: 1100px;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: Inter, Arial, sans-serif;
+    }
 
-<title>Azure AI | Find Your Azure</title>
+    *, *::before, *::after { box-sizing: border-box; }
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    html { scroll-behavior: smooth; }
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
 
-<style>
+    /* Background */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: var(--bg);
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% -5%, rgba(92, 188, 255, 0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 85% 30%, rgba(30, 90, 180, 0.07) 0%, transparent 50%),
+        radial-gradient(ellipse 45% 30% at 10% 70%, rgba(20, 70, 150, 0.06) 0%, transparent 50%);
+      animation: gradientShift 20s ease-in-out infinite alternate;
+    }
 
-html{
-scroll-behavior:smooth;
-}
+    @keyframes gradientShift {
+      0% { opacity: 0.75; }
+      100% { opacity: 1; }
+    }
 
-body{
-background:#050b18;
-color:white;
-font-family:'Inter',sans-serif;
-line-height:1.8;
-}
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(5, 11, 24, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
 
-nav{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-padding:20px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(5,11,24,.85);
-backdrop-filter:blur(12px);
-z-index:1000;
-}
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+    }
 
-.logo-area{
-display:flex;
-align-items:center;
-gap:12px;
-}
+    .nav-brand img {
+      height: 38px;
+      width: auto;
+    }
 
-.logo-area img{
-height:42px;
-}
+    .nav-brand span {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+    }
 
-.logo-area span{
-font-family:'Cormorant Garamond',serif;
-font-size:1.8rem;
-letter-spacing:2px;
-}
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
 
-.lang{
-color:#7ec8ff;
-font-size:.95rem;
-}
+    .lang-switch {
+      font-size: 0.82rem;
+      opacity: 0.75;
+    }
 
-.hero{
-height:750px;
-background:url('hero.jpeg') center top/100% auto no-repeat;
-background-color:#050b18;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-}
+    .lang-switch a {
+      color: var(--azure);
+      text-decoration: none;
+      margin: 0 3px;
+      transition: opacity 0.2s ease;
+    }
 
-.hero-content{
-max-width:900px;
-padding-top:80px;
-}
+    .lang-switch a:hover,
+    .lang-switch a.active {
+      opacity: 1;
+    }
 
-.hero h1{
-font-family:'Cormorant Garamond',serif;
-font-size:7rem;
-letter-spacing:8px;
-margin-bottom:10px;
-}
+    .lang-switch a.active {
+      font-weight: 600;
+      color: var(--text);
+    }
 
-.hero h2{
-font-family:'Comorant Garamond', serif;
-font-size:2.2rem;
-font-weight:500;
-color:#9bc9ff;
-margin-top:0;
-margin-bottom:10px;
-}
+    .nav-cta {
+      display: none;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(92, 188, 255, 0.4);
+      border-radius: var(--radius-sm);
+      background: rgba(92, 188, 255, 0.08);
+      transition: all 0.25s ease;
+    }
 
-.hero p{
-margin-top:10px;
-font-size:1.2rem;
-}
+    .nav-cta:hover {
+      background: rgba(92, 188, 255, 0.18);
+      border-color: var(--azure-bright);
+    }
 
-.button{
-display:inline-block;
-margin-top:20px;
-padding:16px 40px;
-border:1px solid #5cbcff;
-border-radius:8px;
-text-decoration:none;
-color:white;
-transition:.3s;
-}
+    @media (min-width: 640px) {
+      .nav-cta { display: inline-flex; }
+    }
 
-.button:hover{
-background:#0d3c66;
-}
+    /* Layout */
+    .container {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    }
 
-.content{
-max-width:1100px;
-margin:auto;
-padding:50px 30px;
-}
+    section {
+      padding: var(--section-gap) 0;
+    }
 
-.content h2{
-font-family:'Cormorant Garamond',serif;
-font-size:3rem;
-margin-bottom:25px;
-color:#7ec8ff;
-}
+    section + section:not(.hero):not(.cta-footer) {
+      border-top: 1px solid var(--border);
+    }
 
-.content p{
-max-width:700px;
-}
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--azure);
+      margin-bottom: 0.85rem;
+    }
 
-.features{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:20px;
-}
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--azure);
+      margin: 0 0 1.5rem;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+    }
 
-.card{
-background:#0b1427;
-padding:25px;
-border-radius:10px;
-}
+    .prose {
+      max-width: 680px;
+    }
 
-.card h3{
-margin-bottom:10px;
-}
+    .prose p {
+      font-size: 1.02rem;
+      color: var(--text-soft);
+      margin: 0 0 1.35rem;
+      line-height: 1.8;
+    }
 
-.footer{
-height:650px;
-background:url('footer.jpeg') center center/cover no-repeat;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding-top:120px;
-padding-left:20px;
-padding-right:20px;
-}
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
 
-.footer h2{
-font-family:'Cormorant Garamond',serif;
-font-size:4rem;
-}
+    .prose .lead {
+      font-size: 1.1rem;
+      color: var(--text);
+    }
 
-.footer p{
-margin-top:15px;
-}
+    .prose .emphasis {
+      color: var(--text);
+      font-weight: 500;
+    }
 
-.footer div{
-margin-top:-480px;
-}
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
 
-.scroll-down{
-margin-top:40px;
-font-size:0.9rem;
-color:#7ec8ff;
-opacity:0.8;
-letter-spacing:2px;
-}
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.philosophy{
-max-width:1100px;
-width:100%;
-margin:auto;
-padding:50px 30px;
-}
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 4rem;
+      border-top: none !important;
+      overflow: hidden;
+    }
 
-.philosophy h2{
-font-family:'Cormorant Garamond', serif;
-font-size:3rem;
-color:#7ec8ff;
-margin-bottom:25px;
-}
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(to bottom, rgba(5, 11, 24, 0.55) 0%, rgba(5, 11, 24, 0.82) 55%, var(--bg) 100%),
+        url("hero.jpeg") center top / cover no-repeat;
+    }
 
-.philosophy p{
-max-width:700px;
-line-height:1.8;
-margin-bottom:35px;
-}  
-  
-@media (max-width:768px){
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+    }
 
-.features{
-grid-template-columns:repeat(2,1fr);
-}
+    .hero-logo {
+      width: clamp(64px, 10vw, 88px);
+      margin-bottom: 1.75rem;
+      filter: drop-shadow(0 0 28px var(--azure-glow));
+    }
 
-.content h2,
-.philosophy h2{
-font-size:2rem;
-line-height:1.2;
-}
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 9vw, 5.5rem);
+      font-weight: 600;
+      letter-spacing: clamp(0.08em, 2vw, 0.18em);
+      margin: 0 0 0.35rem;
+      line-height: 1.05;
+    }
 
-.hero{
-min-height:100vh;
-background-size:cover;
-background-position:center;
-}
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+      font-weight: 500;
+      color: var(--azure);
+      margin: 0 0 1.5rem;
+      letter-spacing: 0.04em;
+    }
 
-.hero h1{
-font-size:3rem;
-letter-spacing:3px;
-line-height:1.1;
-}
+    .hero-desc {
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 0.75rem;
+      line-height: 1.7;
+    }
 
-.hero h2{
-font-size:1.5rem;
-}
-  
-.footer h2{
-font-size:2rem;
-}
+    .hero-desc strong {
+      color: var(--text-soft);
+      font-weight: 500;
+    }
 
-nav{
-padding:15px 20px;
-}
+    .hero-actions {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
 
-.logo-area span{
-font-size:1.3rem;
-}
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      font-family: inherit;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
 
-}
+    .btn-primary {
+      background: rgba(92, 188, 255, 0.14);
+      border-color: rgba(92, 188, 255, 0.45);
+      color: var(--text);
+      box-shadow: 0 0 24px var(--azure-glow);
+    }
 
-.social-footer{
-display:flex;
-justify-content:center;
-gap:35px;
-padding:40px 0 20px;
-}
+    .btn-primary:hover {
+      background: rgba(92, 188, 255, 0.26);
+      border-color: var(--azure-bright);
+      box-shadow: 0 0 36px rgba(92, 188, 255, 0.22);
+      transform: translateY(-2px);
+    }
 
-.social-footer a{
-color:#7ec8ff;
-font-size:2rem;
-text-decoration:none;
-transition:0.3s;
-}
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border-hover);
+      color: var(--text-soft);
+    }
 
-.social-footer a:hover{
-color:white;
-transform:translateY(-3px);
-}
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
 
-.footer-note{
-text-align:center;
-color:#7ec8ff;
-opacity:0.7;
-padding-bottom:40px;
-font-size:0.9rem;
-}
-  
-</style>
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--azure);
+      opacity: 0.55;
+      animation: bob 2.8s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.45; }
+      50% { transform: translateX(-50%) translateY(6px); opacity: 0.75; }
+    }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 36px rgba(0, 0, 0, 0.28), 0 0 24px var(--azure-glow);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(92, 188, 255, 0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.1rem;
+      color: var(--azure);
+    }
+
+    .feature-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+      letter-spacing: 0.01em;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* FrontSea link card */
+    .partner-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1.75rem, 4vw, 2.5rem);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .partner-card p {
+      margin: 0;
+      max-width: 620px;
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.75;
+    }
+
+    .partner-card a {
+      color: var(--azure);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+
+    .partner-card a:hover {
+      color: var(--text);
+    }
+
+    /* CTA footer */
+    .cta-footer {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 1.5rem;
+      border-top: none !important;
+      overflow: hidden;
+    }
+
+    .cta-footer-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, var(--bg) 0%, rgba(5, 11, 24, 0.7) 40%, rgba(5, 11, 24, 0.5) 100%),
+        url("footer.jpeg") center center / cover no-repeat;
+    }
+
+    .cta-footer-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+    }
+
+    .cta-footer h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .cta-footer p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin: 0 0 2rem;
+      line-height: 1.7;
+    }
+
+    /* Site footer */
+    .site-footer {
+      padding: 2.5rem 0 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--azure);
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .social-links a:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      background: rgba(92, 188, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .social-links svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .partner-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-row {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-<nav>
 
-<div class="logo-area">
-<img src="logo.jpeg">
-<span>AZURE AI</span>
-</div>
+  <div class="bg-layer" aria-hidden="true"></div>
+  <div class="bg-gradient" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <a href="#top" class="nav-brand">
+      <img src="logo.jpeg" alt="Azure AI">
+      <span>AZURE AI</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switch">
+        <a href="#" onclick="setLang('en'); return false;" id="lang-en" class="active">EN</a> |
+        <a href="#" onclick="setLang('pt'); return false;" id="lang-pt">PT</a>
+      </div>
+      <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="nav-cta" data-i18n="navLaunch">Launch App</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <img src="logo.jpeg" alt="" class="hero-logo">
+      <h1>AZURE AI</h1>
+      <p class="hero-tagline" data-i18n="tagline">Find Your Azure</p>
+      <p class="hero-desc" data-i18n="heroLine1">Where sea, sky and decision come into balance.</p>
+      <p class="hero-desc" data-i18n="heroLine2">Azure is the moment when understanding replaces uncertainty.</p>
+      <div class="hero-actions">
+        <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="btnLaunch">Launch Azure AI</a>
+        <a href="#search" class="btn btn-ghost" data-i18n="btnLearn">Learn More</a>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">↓</div>
+  </section>
+
+  <!-- The Search For Azure -->
+  <section id="search">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="searchLabel">Philosophy</span>
+      <h2 class="section-title" data-i18n="searchTitle">The Search For Azure</h2>
+      <div class="prose">
+        <p data-i18n="searchP1">For centuries, sailors searched for signs that would guide their journey. A clear horizon. Favourable winds. The confidence to continue.</p>
+        <p data-i18n="searchP2">Today, the ocean remains the same. The way we understand it has changed.</p>
+        <p data-i18n="searchP3">Azure AI combines weather intelligence, marine forecasts and artificial intelligence to help mariners better understand the conditions around them before departure and throughout their journey.</p>
+        <p class="emphasis" data-i18n="searchP4">Not to replace experience. To support it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Meaning Of Azure -->
+  <section id="meaning">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="meaningLabel">Definition</span>
+      <h2 class="section-title" data-i18n="meaningTitle">The Meaning Of Azure</h2>
+      <div class="prose">
+        <p data-i18n="meaningP1">Azure is not simply a colour.</p>
+        <p data-i18n="meaningP2">It is a word sailors have associated for centuries with clear horizons, open skies and favourable conditions.</p>
+        <p data-i18n="meaningP3">It is the moment when uncertainty begins to fade. When the sea becomes readable. When confidence replaces doubt.</p>
+        <p data-i18n="meaningP4">Every mariner knows this feeling.</p>
+        <p data-i18n="meaningP5">A calm morning before departure. A weather window opening at the right time. The certainty that a decision is supported by understanding.</p>
+        <p class="lead emphasis" data-i18n="meaningP6">That moment is Azure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Sea Has Always Been Intelligent -->
+  <section id="belief">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="beliefLabel">Principle</span>
+      <h2 class="section-title" data-i18n="beliefTitle">The Sea Has Always Been Intelligent</h2>
+      <div class="prose">
+        <p data-i18n="beliefP1">Long before satellites, forecasts and artificial intelligence, mariners learned to read the sea.</p>
+        <p data-i18n="beliefP2">They observed the clouds. They watched the wind. They listened to experience passed from one generation to the next.</p>
+        <p data-i18n="beliefP3">Technology has changed. The ocean has not.</p>
+        <p data-i18n="beliefP4">Azure AI is built on a simple belief:</p>
+        <p class="emphasis" data-i18n="beliefP5">The best decisions come when human experience and better information work together.</p>
+        <p data-i18n="beliefP6">Not replacing judgement. Strengthening it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built For The Sea -->
+  <section id="features">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="featuresLabel">Capabilities</span>
+      <h2 class="section-title" data-i18n="featuresTitle">Built For The Sea</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2 14c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2"/><path d="M2 18c2 0 3-2 5-2s3 2 5 2 3-2 5-2 3 2 5 2"/></svg>
+          </div>
+          <h3 data-i18n="feat1Title">Marine Weather</h3>
+          <p data-i18n="feat1Desc">Weather intelligence designed specifically for life at sea.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.6-.6 3.1-1.6 4.3L21 20"/><path d="M3 14h7"/><path d="M3 18h5"/></svg>
+          </div>
+          <h3 data-i18n="feat2Title">Wind &amp; Sea State</h3>
+          <p data-i18n="feat2Desc">Understand changing marine conditions with clarity.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><path d="m7 7 2 2"/><path d="m15 15 2 2"/></svg>
+          </div>
+          <h3 data-i18n="feat3Title">Decision Support</h3>
+          <p data-i18n="feat3Desc">Helping mariners make informed decisions.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3v4"/><path d="M8 7h8"/><rect x="5" y="7" width="14" height="14" rx="2"/><path d="M9 14h.01"/><path d="M12 14h.01"/><path d="M15 14h.01"/><path d="M9 17h.01"/><path d="M12 17h.01"/><path d="M15 17h.01"/></svg>
+          </div>
+          <h3 data-i18n="feat4Title">AI Insights</h3>
+          <p data-i18n="feat4Desc">Artificial intelligence transforming data into understanding.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beyond Weather -->
+  <section id="beyond">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="beyondLabel">Approach</span>
+      <h2 class="section-title" data-i18n="beyondTitle">Beyond Weather</h2>
+      <div class="prose">
+        <p data-i18n="beyondP1">Weather is only part of the picture.</p>
+        <p data-i18n="beyondP2">A voyage is influenced by wind, sea state, timing, location, experience and purpose.</p>
+        <p data-i18n="beyondP3">Azure AI is designed to bring these elements together into a clearer understanding of the conditions around you.</p>
+        <p data-i18n="beyondP4">Because better decisions do not come from more information.</p>
+        <p class="emphasis" data-i18n="beyondP5">They come from understanding.</p>
+        <p data-i18n="beyondP6">That is the journey Azure AI is built to support.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Powered By FrontSea -->
+  <section id="frontsea">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="frontseaLabel">Ecosystem</span>
+      <h2 class="section-title" data-i18n="frontseaTitle">Powered By FrontSea Intelligence</h2>
+      <div class="partner-card">
+        <p data-i18n="frontseaDesc">FrontSea Intelligence develops maritime AI systems focused on weather, navigation and ocean intelligence. Azure AI is the first step in that journey.</p>
+        <a href="https://frontseaintelligence.com" target="_blank" rel="noopener" data-i18n="frontseaLink">frontseaintelligence.com →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-footer" id="cta">
+    <div class="cta-footer-bg" aria-hidden="true"></div>
+    <div class="cta-footer-inner reveal">
+      <h2 data-i18n="ctaTitle">Find Your Azure</h2>
+      <p data-i18n="ctaDesc">Every voyage begins with a decision. Know the sea. Understand the conditions.</p>
+      <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="btnLaunch">Launch Azure AI</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div class="social-links">
+          <a href="https://www.instagram.com/azureai.app" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+          <a href="mailto:contact@azureai.pt" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </div>
+        <p class="footer-copy">Azure AI © 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var translations = {
+      en: {
+        navLaunch: "Launch App",
+        tagline: "Find Your Azure",
+        heroLine1: "Where sea, sky and decision come into balance.",
+        heroLine2: "Azure is the moment when understanding replaces uncertainty.",
+        btnLaunch: "Launch Azure AI",
+        btnLearn: "Learn More",
+        searchLabel: "Philosophy",
+        searchTitle: "The Search For Azure",
+        searchP1: "For centuries, sailors searched for signs that would guide their journey. A clear horizon. Favourable winds. The confidence to continue.",
+        searchP2: "Today, the ocean remains the same. The way we understand it has changed.",
+        searchP3: "Azure AI combines weather intelligence, marine forecasts and artificial intelligence to help mariners better understand the conditions around them before departure and throughout their journey.",
+        searchP4: "Not to replace experience. To support it.",
+        meaningLabel: "Definition",
+        meaningTitle: "The Meaning Of Azure",
+        meaningP1: "Azure is not simply a colour.",
+        meaningP2: "It is a word sailors have associated for centuries with clear horizons, open skies and favourable conditions.",
+        meaningP3: "It is the moment when uncertainty begins to fade. When the sea becomes readable. When confidence replaces doubt.",
+        meaningP4: "Every mariner knows this feeling.",
+        meaningP5: "A calm morning before departure. A weather window opening at the right time. The certainty that a decision is supported by understanding.",
+        meaningP6: "That moment is Azure.",
+        beliefLabel: "Principle",
+        beliefTitle: "The Sea Has Always Been Intelligent",
+        beliefP1: "Long before satellites, forecasts and artificial intelligence, mariners learned to read the sea.",
+        beliefP2: "They observed the clouds. They watched the wind. They listened to experience passed from one generation to the next.",
+        beliefP3: "Technology has changed. The ocean has not.",
+        beliefP4: "Azure AI is built on a simple belief:",
+        beliefP5: "The best decisions come when human experience and better information work together.",
+        beliefP6: "Not replacing judgement. Strengthening it.",
+        featuresLabel: "Capabilities",
+        featuresTitle: "Built For The Sea",
+        feat1Title: "Marine Weather",
+        feat1Desc: "Weather intelligence designed specifically for life at sea.",
+        feat2Title: "Wind & Sea State",
+        feat2Desc: "Understand changing marine conditions with clarity.",
+        feat3Title: "Decision Support",
+        feat3Desc: "Helping mariners make informed decisions.",
+        feat4Title: "AI Insights",
+        feat4Desc: "Artificial intelligence transforming data into understanding.",
+        beyondLabel: "Approach",
+        beyondTitle: "Beyond Weather",
+        beyondP1: "Weather is only part of the picture.",
+        beyondP2: "A voyage is influenced by wind, sea state, timing, location, experience and purpose.",
+        beyondP3: "Azure AI is designed to bring these elements together into a clearer understanding of the conditions around you.",
+        beyondP4: "Because better decisions do not come from more information.",
+        beyondP5: "They come from understanding.",
+        beyondP6: "That is the journey Azure AI is built to support.",
+        frontseaLabel: "Ecosystem",
+        frontseaTitle: "Powered By FrontSea Intelligence",
+        frontseaDesc: "FrontSea Intelligence develops maritime AI systems focused on weather, navigation and ocean intelligence. Azure AI is the first step in that journey.",
+        frontseaLink: "frontseaintelligence.com →",
+        ctaTitle: "Find Your Azure",
+        ctaDesc: "Every voyage begins with a decision. Know the sea. Understand the conditions."
+      },
+      pt: {
+        navLaunch: "Abrir App",
+        tagline: "Find Your Azure",
+        heroLine1: "Onde o mar, o céu e a decisão encontram equilíbrio.",
+        heroLine2: "Azure é o momento em que a compreensão substitui a incerteza.",
+        btnLaunch: "Iniciar Azure AI",
+        btnLearn: "Saber Mais",
+        searchLabel: "Filosofia",
+        searchTitle: "A Procura do Azure",
+        searchP1: "Durante séculos, os marinheiros procuraram sinais que guiassem a sua viagem. Um horizonte limpo. Ventos favoráveis. A confiança para continuar.",
+        searchP2: "Hoje, o oceano permanece o mesmo. A forma como o compreendemos mudou.",
+        searchP3: "O Azure AI combina inteligência meteorológica, previsões marítimas e inteligência artificial para ajudar os marinheiros a compreender melhor as condições à sua volta antes da partida e ao longo da viagem.",
+        searchP4: "Não para substituir a experiência. Para a apoiar.",
+        meaningLabel: "Definição",
+        meaningTitle: "O Significado de Azure",
+        meaningP1: "Azure não é simplesmente uma cor.",
+        meaningP2: "É uma palavra que os marinheiros associam há séculos a horizontes limpos, céus abertos e condições favoráveis.",
+        meaningP3: "É o momento em que a incerteza começa a desvanecer-se. Quando o mar se torna legível. Quando a confiança substitui a dúvida.",
+        meaningP4: "Todo o marinheiro conhece esta sensação.",
+        meaningP5: "Uma manhã calma antes da partida. Uma janela meteorológica que se abre no momento certo. A certeza de que uma decisão é apoiada pela compreensão.",
+        meaningP6: "Esse momento é Azure.",
+        beliefLabel: "Princípio",
+        beliefTitle: "O Mar Sempre Foi Inteligente",
+        beliefP1: "Muito antes dos satélites, das previsões e da inteligência artificial, os marinheiros aprenderam a ler o mar.",
+        beliefP2: "Observavam as nuvens. Vigiavam o vento. Escutavam a experiência transmitida de geração em geração.",
+        beliefP3: "A tecnologia mudou. O oceano, não.",
+        beliefP4: "O Azure AI assenta numa crença simples:",
+        beliefP5: "As melhores decisões surgem quando a experiência humana e uma melhor informação trabalham em conjunto.",
+        beliefP6: "Não substituindo o julgamento. Fortalecendo-o.",
+        featuresLabel: "Capacidades",
+        featuresTitle: "Construído Para o Mar",
+        feat1Title: "Meteorologia Marítima",
+        feat1Desc: "Inteligência meteorológica concebida especificamente para a vida no mar.",
+        feat2Title: "Vento e Estado do Mar",
+        feat2Desc: "Compreenda as condições marítimas em mudança com clareza.",
+        feat3Title: "Apoio à Decisão",
+        feat3Desc: "Ajudar os marinheiros a tomar decisões informadas.",
+        feat4Title: "Insights de IA",
+        feat4Desc: "Inteligência artificial a transformar dados em compreensão.",
+        beyondLabel: "Abordagem",
+        beyondTitle: "Para Além do Tempo",
+        beyondP1: "O tempo é apenas parte do quadro.",
+        beyondP2: "Uma viagem é influenciada pelo vento, estado do mar, timing, localização, experiência e propósito.",
+        beyondP3: "O Azure AI foi concebido para reunir estes elementos numa compreensão mais clara das condições à sua volta.",
+        beyondP4: "Porque melhores decisões não vêm de mais informação.",
+        beyondP5: "Vêm da compreensão.",
+        beyondP6: "É essa a jornada que o Azure AI foi construído para apoiar.",
+        frontseaLabel: "Ecossistema",
+        frontseaTitle: "Powered By FrontSea Intelligence",
+        frontseaDesc: "A FrontSea Intelligence desenvolve sistemas de IA marítima focados em meteorologia, navegação e inteligência oceânica. O Azure AI é o primeiro passo nessa jornada.",
+        frontseaLink: "frontseaintelligence.com →",
+        ctaTitle: "Find Your Azure",
+        ctaDesc: "Toda a viagem começa com uma decisão. Conheça o mar. Compreenda as condições."
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.lang = lang === "pt" ? "pt-PT" : "en";
+      document.getElementById("lang-en").classList.toggle("active", lang === "en");
+      document.getElementById("lang-pt").classList.toggle("active", lang === "pt");
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+    }
+
+    setLang("en");
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(function (el) {
+      observer.observe(el);
+    });
+  </script>
 
-</nav>
-
-<section class="hero">
-
-<div class="hero-content">
-
-<h1>AZURE AI</h1>
-
-<h2>Find Your Azure</h2>
-
-<p>
-Where sea, sky and decision come into balance.
-</p>
-
-<p>
-Azure is the moment when understanding replaces uncertainty.
-</p>
-
-<a class="button"
-href="https://app.azureaiweather.com">
-Launch Azure AI
-</a>
-  
-<div class="scroll-down">
-↓ 
-</div>
-
-</section>
-
-<section class="content">
-
-<h2>The Search For Azure</h2>
-
-<p>
-For centuries, sailors searched for signs that would guide their journey.
-A clear horizon. Favourable winds. The confidence to continue.
-</p>
-
-<br>
-
-<p>
-Today, the ocean remains the same.
-The way we understand it has changed.
-</p>
-
-<br>
-
-<p>
-Azure AI combines weather intelligence, marine forecasts and artificial intelligence to help mariners better understand the conditions around them before departure and throughout their journey.
-</p>
-
-<br>
-
-<p>
-Not to replace experience.
-To support it.
-</p>
-
-</section>
-
-<section class="section philosophy">
-<h2>The Meaning Of Azure</h2>
-
-<p>
-Azure is not simply a colour.
-</p>
-
-<p>
-It is a word sailors have associated for centuries with clear horizons,
-open skies and favourable conditions.
-</p>
-
-<p>
-It is the moment when uncertainty begins to fade.
-When the sea becomes readable.
-When confidence replaces doubt.
-</p>
-
-<p>
-Every mariner knows this feeling.
-</p>
-
-<p>
-A calm morning before departure.
-A weather window opening at the right time.
-The certainty that a decision is supported by understanding.
-</p>
-
-<p>
-That moment is Azure.
-</p>
-</section>
-
-<section class="section philosophy">
-<h2>The Sea Has Always Been Intelligent</h2>
-
-<p>
-Long before satellites, forecasts and artificial intelligence,
-mariners learned to read the sea.
-</p>
-
-<p>
-They observed the clouds.
-They watched the wind.
-They listened to experience passed from one generation to the next.
-</p>
-
-<p>
-Technology has changed.
-The ocean has not.
-</p>
-
-<p>
-Azure AI is built on a simple belief:
-</p>
-
-<p>
-The best decisions come when human experience and better information
-work together.
-</p>
-
-<p>
-Not replacing judgement.
-Strengthening it.
-</p>
-</section>
-
-<section class="content">
-
-<h2>Built For The Sea</h2>
-
-<div class="features">
-
-<div class="card">
-<h3>🌊 Marine Weather</h3>
-<p>Weather intelligence designed specifically for life at sea.</p>
-</div>
-
-<div class="card">
-<h3>🌬️ Wind & Sea State</h3>
-<p>Understand changing marine conditions with clarity.</p>
-</div>
-
-<div class="card">
-<h3>🧭 Decision Support</h3>
-<p>Helping mariners make informed decisions.</p>
-</div>
-
-<div class="card">
-<h3>🤖 AI Insights</h3>
-<p>Artificial intelligence transforming data into understanding.</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="section philosophy">
-<h2>Beyond Weather</h2>
-
-<p>
-Weather is only part of the picture.
-</p>
-
-<p>
-A voyage is influenced by wind, sea state, timing,
-location, experience and purpose.
-</p>
-
-<p>
-Azure AI is designed to bring these elements together into a clearer
-understanding of the conditions around you.
-</p>
-
-<p>
-Because better decisions do not come from more information.
-</p>
-
-<p>
-They come from understanding.
-</p>
-
-<p>
-That is the journey Azure AI is built to support.
-</p>
-</section>
-
-<section class="content">
-
-<h2>Powered By FrontSea Intelligence</h2>
-
-<p>
-FrontSea Intelligence develops maritime AI systems focused on weather, navigation and ocean intelligence.
-Azure AI is the first step in that journey.
-</p>
-
-</section>
-
-<section class="footer">
-
-<div>
-
-<h2>Find Your Azure</h2>
-
-<p>
-Every voyage begins with a decision.
-Know the sea. Understand the conditions.
-</p>
-
-
-<footer class="social-footer">
-
-<a href="https://www.instagram.com/azureai.app"
-target="_blank"
-title="Instagram">
-<i class="fab fa-instagram"></i>
-</a>
-
-<a href="mailto:contact@azureai.pt"
-title="Email">
-<i class="fas fa-envelope"></i>
-</a>
-
-</footer>
-
-
-</p>
-</a>
-
-</div>
-
-</section>
-  
-<p class="footer-note">
-    Azure AI © 2026
 </body>
 </html>
 
