@@ -452,6 +452,74 @@
       color: var(--text);
     }
 
+    .contact-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1.5rem, 3vw, 2.1rem);
+      max-width: 680px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .contact-block p {
+      margin: 0;
+      font-size: 1.02rem;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .contact-line {
+      margin-top: 1.1rem;
+    }
+
+    .contact-line a {
+      color: var(--azure);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: color 0.2s ease;
+    }
+
+    .contact-line a:hover {
+      color: var(--text);
+    }
+
+    .saas-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1.6rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .saas-list li {
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 999px;
+      padding: 0.42rem 0.95rem;
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+    }
+
+    @media (max-width: 700px) {
+      .mode-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mode-close {
+      margin-top: 1.75rem;
+    }
+
     /* CTA footer */
     .cta-footer {
       position: relative;
@@ -707,6 +775,91 @@
     </div>
   </section>
 
+  <!-- Ways of Azure -->
+  <section id="ways">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="waysLabel">Invitation</span>
+      <h2 class="section-title" data-i18n="waysTitle">Ways of Azure</h2>
+      <div class="prose">
+        <p data-i18n="waysP1">Azure AI is one philosophy, offered in more than one way.</p>
+        <p data-i18n="waysP2">Some people need a clearer view of the sea. Some businesses need that same understanding inside their own systems.</p>
+        <p data-i18n="waysP3">There are solutions for everyone. Some are free. Some are paid. All of them exist to support the decision. Not to replace the person who makes it.</p>
+        <p class="emphasis" data-i18n="waysP4">This site is the introduction. It is not the operational application.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Azure Weather SaaS -->
+  <section id="saas">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="saasLabel">Partners</span>
+      <h2 class="section-title" data-i18n="saasTitle">Azure Weather SaaS</h2>
+      <div class="prose">
+        <p class="lead emphasis" data-i18n="saasLead">Your locations. Your activities. Your weather intelligence.</p>
+        <p data-i18n="saasP1">For clubs, operators and partners who need Azure inside their own product — through API, content and webhooks.</p>
+        <p data-i18n="saasP2">This is how partners connect. It is public for integration. It is not an internal operations desk.</p>
+      </div>
+      <ul class="saas-list">
+        <li data-i18n="saas1">Your locations</li>
+        <li data-i18n="saas2">Your activities</li>
+        <li data-i18n="saas3">Weather intelligence</li>
+        <li data-i18n="saas4">API</li>
+        <li data-i18n="saas5">Content</li>
+        <li data-i18n="saas6">Webhooks</li>
+        <li data-i18n="saas7">Partner integration</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Complete mode -->
+  <section id="complete">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="completeLabel">Horizon</span>
+      <h2 class="section-title" data-i18n="completeTitle">Complete Mode</h2>
+      <div class="prose">
+        <p data-i18n="completeP1">The same understanding, as complete as the work requires.</p>
+        <p data-i18n="completeP2">Future companies may want every part of Azure, or only one. The philosophy stays the same. The shape can change.</p>
+      </div>
+      <div class="mode-grid">
+        <article class="feature-card">
+          <h3 data-i18n="comp1Title">Explore Weather</h3>
+          <p data-i18n="comp1Desc">Structured conditions. No AI required.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="comp2Title">Ask Azure</h3>
+          <p data-i18n="comp2Desc">Questions in natural language, grounded on real intelligence.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="comp3Title">Your Places</h3>
+          <p data-i18n="comp3Desc">Your own locations and activities.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="comp4Title">Intelligence Delivery</h3>
+          <p data-i18n="comp4Desc">Intelligence delivered by API, content and webhooks.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="comp5Title">Partner Configuration</h3>
+          <p data-i18n="comp5Desc">A partner configuration, not a second website.</p>
+        </article>
+      </div>
+      <div class="prose mode-close">
+        <p class="emphasis" data-i18n="completeP3">This is the map of what Azure can become. It is not a live control room, and it is not the skipper app.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact below SaaS -->
+  <section id="contact-solutions">
+    <div class="container reveal">
+      <span class="section-label" data-i18n="contactLabel">Contact</span>
+      <h2 class="section-title" data-i18n="contactBelowTitle">Contact</h2>
+      <div class="contact-block">
+        <p data-i18n="contactBelowP">Contact us for weather solutions.</p>
+        <p class="contact-line"><a href="mailto:contact@azureai.pt">contact@azureai.pt</a></p>
+      </div>
+    </div>
+  </section>
+
   <!-- Powered By FrontSea -->
   <section id="frontsea">
     <div class="container reveal">
@@ -795,6 +948,42 @@
         beyondP4: "Because better decisions do not come from more information.",
         beyondP5: "They come from understanding.",
         beyondP6: "That is the journey Azure AI is built to support.",
+        waysLabel: "Invitation",
+        waysTitle: "Ways of Azure",
+        waysP1: "Azure AI is one philosophy, offered in more than one way.",
+        waysP2: "Some people need a clearer view of the sea. Some businesses need that same understanding inside their own systems.",
+        waysP3: "There are solutions for everyone. Some are free. Some are paid. All of them exist to support the decision. Not to replace the person who makes it.",
+        waysP4: "This site is the introduction. It is not the operational application.",
+        contactLabel: "Contact",
+        saasLabel: "Partners",
+        saasTitle: "Azure Weather SaaS",
+        saasLead: "Your locations. Your activities. Your weather intelligence.",
+        saasP1: "For clubs, operators and partners who need Azure inside their own product — through API, content and webhooks.",
+        saasP2: "This is how partners connect. It is public for integration. It is not an internal operations desk.",
+        saas1: "Your locations",
+        saas2: "Your activities",
+        saas3: "Weather intelligence",
+        saas4: "API",
+        saas5: "Content",
+        saas6: "Webhooks",
+        saas7: "Partner integration",
+        completeLabel: "Horizon",
+        completeTitle: "Complete Mode",
+        completeP1: "The same understanding, as complete as the work requires.",
+        completeP2: "Future companies may want every part of Azure, or only one. The philosophy stays the same. The shape can change.",
+        comp1Title: "Explore Weather",
+        comp1Desc: "Structured conditions. No AI required.",
+        comp2Title: "Ask Azure",
+        comp2Desc: "Questions in natural language, grounded on real intelligence.",
+        comp3Title: "Your Places",
+        comp3Desc: "Your own locations and activities.",
+        comp4Title: "Intelligence Delivery",
+        comp4Desc: "Intelligence delivered by API, content and webhooks.",
+        comp5Title: "Partner Configuration",
+        comp5Desc: "A partner configuration, not a second website.",
+        completeP3: "This is the map of what Azure can become. It is not a live control room, and it is not the skipper app.",
+        contactBelowTitle: "Contact",
+        contactBelowP: "Contact us for weather solutions.",
         frontseaLabel: "Ecosystem",
         frontseaTitle: "Powered By FrontSea Intelligence",
         frontseaDesc: "FrontSea Intelligence develops maritime AI systems focused on weather, navigation and ocean intelligence. Azure AI is the first step in that journey.",
@@ -849,6 +1038,42 @@
         beyondP4: "Porque melhores decisões não vêm de mais informação.",
         beyondP5: "Vêm da compreensão.",
         beyondP6: "É essa a jornada que o Azure AI foi construído para apoiar.",
+        waysLabel: "Convite",
+        waysTitle: "Caminhos do Azure",
+        waysP1: "O Azure AI é uma só filosofia, oferecida de mais do que uma forma.",
+        waysP2: "Há quem precise de uma leitura mais clara do mar. Há empresas que precisam dessa mesma compreensão dentro dos seus próprios sistemas.",
+        waysP3: "Há soluções para todos. Algumas são livres. Outras são pagas. Todas existem para apoiar a decisão. Não para substituir quem a toma.",
+        waysP4: "Este sítio é a introdução. Não é a aplicação operacional.",
+        contactLabel: "Contacto",
+        saasLabel: "Parceiros",
+        saasTitle: "Azure Weather SaaS",
+        saasLead: "Os vossos locais. As vossas actividades. A vossa inteligência meteorológica.",
+        saasP1: "Para clubes, operadores e parceiros que precisam do Azure dentro do seu próprio produto — por API, conteúdo e webhooks.",
+        saasP2: "É assim que os parceiros se ligam. É público para integração. Não é um posto de operações interno.",
+        saas1: "Os vossos locais",
+        saas2: "As vossas actividades",
+        saas3: "Inteligência meteorológica",
+        saas4: "API",
+        saas5: "Conteúdo",
+        saas6: "Webhooks",
+        saas7: "Integração de parceiros",
+        completeLabel: "Horizonte",
+        completeTitle: "Modo Completo",
+        completeP1: "A mesma compreensão, tão completa quanto o trabalho exigir.",
+        completeP2: "Empresas futuras podem querer todas as partes do Azure, ou apenas uma. A filosofia permanece. A forma pode mudar.",
+        comp1Title: "Explore Weather",
+        comp1Desc: "Condições estruturadas. Sem IA.",
+        comp2Title: "Ask Azure",
+        comp2Desc: "Perguntas em linguagem natural, assentes em inteligência real.",
+        comp3Title: "Os Vossos Lugares",
+        comp3Desc: "Os vossos próprios locais e actividades.",
+        comp4Title: "Entrega de Inteligência",
+        comp4Desc: "Inteligência por API, conteúdo e webhooks.",
+        comp5Title: "Configuração de Parceiro",
+        comp5Desc: "Uma configuração de parceiro, não um segundo sítio.",
+        completeP3: "Este é o mapa do que o Azure pode ser. Não é uma sala de controlo, nem a aplicação do skipper.",
+        contactBelowTitle: "Contacto",
+        contactBelowP: "Contacte-nos para soluções meteorológicas.",
         frontseaLabel: "Ecossistema",
         frontseaTitle: "Powered By FrontSea Intelligence",
         frontseaDesc: "A FrontSea Intelligence desenvolve sistemas de IA marítima focados em meteorologia, navegação e inteligência oceânica. O Azure AI é o primeiro passo nessa jornada.",
@@ -883,4 +1108,3 @@
 
 </body>
 </html>
-
