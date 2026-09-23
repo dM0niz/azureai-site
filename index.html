@@ -131,8 +131,14 @@
       color: var(--text);
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
     .nav-cta {
-      display: none;
+      display: inline-flex;
       padding: 0.55rem 1.1rem;
       font-size: 0.82rem;
       font-weight: 500;
@@ -144,13 +150,21 @@
       transition: all 0.25s ease;
     }
 
+    .nav-cta.ghost {
+      background: transparent;
+      border-color: var(--border-hover);
+    }
+
     .nav-cta:hover {
       background: rgba(92, 188, 255, 0.18);
       border-color: var(--azure-bright);
     }
 
-    @media (min-width: 640px) {
-      .nav-cta { display: inline-flex; }
+    @media (max-width: 560px) {
+      .nav-cta {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.74rem;
+      }
     }
 
     /* Layout */
@@ -933,7 +947,10 @@
         <a href="#" onclick="setLang('en'); return false;" id="lang-en" class="active">EN</a> |
         <a href="#" onclick="setLang('pt'); return false;" id="lang-pt">PT</a>
       </div>
-      <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="nav-cta" data-i18n="navLaunch">Launch App</a>
+      <div class="nav-actions">
+        <a href="#saas" class="nav-cta ghost" data-i18n="btnSaas">SaaS weather</a>
+        <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="nav-cta" data-i18n="navLaunch">Launch App</a>
+      </div>
     </div>
   </nav>
 
@@ -949,6 +966,7 @@
       <div class="hero-actions">
         <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="btnLaunch">Launch Azure AI</a>
         <a href="#search" class="btn btn-ghost" data-i18n="btnLearn">Learn More</a>
+        <a href="#saas" class="btn btn-ghost" data-i18n="btnSaas">SaaS weather</a>
       </div>
     </div>
     <div class="scroll-hint" aria-hidden="true">↓</div>
@@ -1225,6 +1243,7 @@
         heroLine2: "Azure is the moment when understanding replaces uncertainty.",
         btnLaunch: "Launch Azure AI",
         btnLearn: "Learn More",
+        btnSaas: "SaaS weather",
         searchLabel: "Philosophy",
         searchTitle: "The Search For Azure",
         searchP1: "For centuries, sailors searched for signs that would guide their journey. A clear horizon. Favourable winds. The confidence to continue.",
@@ -1323,6 +1342,7 @@
         heroLine2: "Azure é o momento em que a compreensão substitui a incerteza.",
         btnLaunch: "Iniciar Azure AI",
         btnLearn: "Saber Mais",
+        btnSaas: "SaaS weather",
         searchLabel: "Filosofia",
         searchTitle: "A Procura do Azure",
         searchP1: "Durante séculos, os marinheiros procuraram sinais que guiassem a sua viagem. Um horizonte limpo. Ventos favoráveis. A confiança para continuar.",
