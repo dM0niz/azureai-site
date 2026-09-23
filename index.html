@@ -520,34 +520,192 @@
 
     .product-selects {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-      margin-bottom: 1.25rem;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 1rem;
+      margin: 1.15rem 0 1.35rem;
     }
 
-    .product-field label {
+    .picker {
+      position: relative;
+    }
+
+    .picker-kicker {
       display: block;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--azure);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.45rem;
     }
 
-    .product-field select,
-    .product-field textarea {
+    .picker-trigger {
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      min-height: 56px;
+      padding: 0.7rem 0.95rem;
       border: 1px solid var(--border);
-      background: rgba(5, 11, 24, 0.55);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(126, 200, 255, 0.08), rgba(5, 11, 24, 0.55));
       color: var(--text);
-      border-radius: var(--radius-sm);
-      padding: 0.7rem 0.85rem;
       font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
-    .product-field textarea {
-      min-height: 110px;
-      resize: vertical;
+    .picker-trigger:hover,
+    .picker.open .picker-trigger {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 4px rgba(126, 200, 255, 0.08);
+    }
+
+    .picker-value {
+      display: block;
+      font-size: 1.02rem;
+      font-weight: 500;
+    }
+
+    .picker-chevron {
+      width: 10px;
+      height: 10px;
+      border-right: 1.6px solid var(--azure);
+      border-bottom: 1.6px solid var(--azure);
+      transform: rotate(45deg);
+      margin-top: -4px;
+      flex-shrink: 0;
+    }
+
+    .picker-menu {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 8px);
+      z-index: 8;
+      max-height: 260px;
+      overflow: auto;
+      padding: 0.4rem;
+      border: 1px solid var(--border-hover);
+      border-radius: 14px;
+      background: rgba(8, 16, 30, 0.96);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .picker-option {
+      width: 100%;
+      display: block;
+      border: 0;
+      background: transparent;
+      color: var(--text-soft);
+      text-align: left;
+      font: inherit;
+      font-size: 0.95rem;
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .picker-option:hover,
+    .picker-option.active {
+      background: rgba(126, 200, 255, 0.12);
+      color: var(--text);
+    }
+
+    .activity-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .activity-pill {
+      border: 1px solid var(--border);
+      background: rgba(5, 11, 24, 0.4);
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      font: inherit;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .activity-pill:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    .activity-pill.active {
+      border-color: rgba(92, 188, 255, 0.5);
+      background: rgba(92, 188, 255, 0.16);
+      color: var(--text);
+      box-shadow: 0 0 18px var(--azure-glow);
+    }
+
+    .ask-composer {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(126, 200, 255, 0.07), rgba(5, 11, 24, 0.5));
+      padding: 0.85rem;
+    }
+
+    .ask-row {
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .ask-row input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      padding: 0.55rem 0.35rem;
+      outline: none;
+    }
+
+    .ask-row input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .ask-try {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.7rem;
+    }
+
+    .ask-try-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--azure);
+      margin-right: 0.15rem;
+    }
+
+    .ask-chip {
+      border: 1px solid var(--border);
+      background: rgba(5, 11, 24, 0.35);
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 0.32rem 0.7rem;
+      font: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .ask-chip:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    #ask-examples {
+      display: contents;
     }
 
     .product-metrics {
@@ -594,44 +752,30 @@
     .suit-badge.limited, .suit-badge.marginal { color: #f3d48b; border-color: rgba(243, 212, 139, 0.35); }
     .suit-badge.unsuitable { color: #f0a3a3; border-color: rgba(240, 163, 163, 0.35); }
 
-    .product-actions {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 0.85rem;
-    }
-
-    .ask-examples {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .ask-examples button {
-      text-align: left;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-soft);
-      border-radius: var(--radius-sm);
-      padding: 0.65rem 0.85rem;
-      font: inherit;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
     .ask-result, .explore-result {
       margin-top: 1rem;
       color: var(--text-soft);
     }
 
-    @media (max-width: 700px) {
-      .product-selects,
-      .product-metrics {
-        grid-template-columns: 1fr 1fr;
-      }
+    .ask-examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.75rem;
     }
 
-    @media (max-width: 520px) {
+    .ask-examples button {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
       .product-selects,
       .product-metrics {
         grid-template-columns: 1fr;
@@ -942,19 +1086,25 @@
         <div id="explore-mode">
           <p class="hero-desc" data-i18n="productExploreHint">Structured conditions. No AI.</p>
           <div class="product-selects">
-            <div class="product-field">
-              <label for="product-location" data-i18n="productLocation">Location</label>
-              <select id="product-location"></select>
+            <div class="picker" id="location-picker">
+              <span class="picker-kicker" data-i18n="productLocation">Location</span>
+              <button type="button" class="picker-trigger" id="location-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="picker-value" id="location-value">Sesimbra</span>
+                <span class="picker-chevron" aria-hidden="true"></span>
+              </button>
+              <div class="picker-menu" id="location-menu" hidden role="listbox"></div>
+              <input type="hidden" id="product-location" value="loc-sesimbra">
             </div>
-            <div class="product-field">
-              <label for="product-activity" data-i18n="productActivity">Activity</label>
-              <select id="product-activity">
-                <option value="BOAT">Boat</option>
-                <option value="SAILING">Sailing</option>
-                <option value="SURF">Surf</option>
-                <option value="BODYBOARD">Bodyboard</option>
-                <option value="OUTDOOR">Outdoor</option>
-              </select>
+            <div>
+              <span class="picker-kicker" data-i18n="productActivity">Activity</span>
+              <div class="activity-pills" id="activity-pills">
+                <button type="button" class="activity-pill active" data-activity="BOAT">Boat</button>
+                <button type="button" class="activity-pill" data-activity="SAILING">Sailing</button>
+                <button type="button" class="activity-pill" data-activity="SURF">Surf</button>
+                <button type="button" class="activity-pill" data-activity="BODYBOARD">Bodyboard</button>
+                <button type="button" class="activity-pill" data-activity="OUTDOOR">Outdoor</button>
+              </div>
+              <input type="hidden" id="product-activity" value="BOAT">
             </div>
           </div>
           <div id="explore-result" class="explore-result"></div>
@@ -962,15 +1112,16 @@
 
         <div id="ask-mode" hidden>
           <p class="hero-desc" data-i18n="productAskHint">Ask in natural language, grounded on real intelligence.</p>
-          <form id="ask-form" class="product-field">
-            <label for="ask-question" data-i18n="productAskLabel">Question</label>
-            <textarea id="ask-question" data-i18n-placeholder="productAskPlaceholder" placeholder="Is tomorrow good for sailing in Cascais?"></textarea>
-            <div class="product-actions">
+          <form id="ask-form" class="ask-composer">
+            <div class="ask-row">
+              <input id="ask-question" type="text" autocomplete="off" data-i18n-placeholder="productAskPlaceholder" placeholder="Is tomorrow good for sailing in Cascais?">
               <button type="submit" class="btn btn-primary" data-i18n="productAskBtn">Ask Azure</button>
             </div>
+            <div class="ask-try">
+              <span class="ask-try-label" data-i18n="productTry">Try this</span>
+              <div id="ask-examples"></div>
+            </div>
           </form>
-          <p class="section-label" data-i18n="productTry">Try asking</p>
-          <div id="ask-examples" class="ask-examples"></div>
           <div id="ask-result" class="ask-result"></div>
         </div>
       </div>
@@ -1133,7 +1284,7 @@
         productAskLabel: "Question",
         productAskPlaceholder: "Is tomorrow good for sailing in Cascais?",
         productAskBtn: "Ask Azure",
-        productTry: "Try asking",
+        productTry: "Try this",
         productLoading: "Loading structured weather...",
         productUnavailable: "Live data unavailable for this location.",
         productError: "Structured weather could not be retrieved. Try again.",
@@ -1231,7 +1382,7 @@
         productAskLabel: "Pergunta",
         productAskPlaceholder: "Quero fazer surf amanhã na zona de Lisboa. Está bom?",
         productAskBtn: "Ask Azure",
-        productTry: "Experimente perguntar",
+        productTry: "Experimente",
         productLoading: "A carregar meteorologia estruturada...",
         productUnavailable: "Dados em directo indisponíveis para este local.",
         productError: "Não foi possível obter a meteorologia estruturada. Tente novamente.",
@@ -1317,14 +1468,14 @@
     ];
     var ASK_EXAMPLES = {
       en: [
-        "Is tomorrow good for sailing in Cascais?",
-        "Can I go boating this afternoon?",
-        "How will the surf be this weekend?"
+        { label: "Sailing · Cascais", question: "Is tomorrow good for sailing in Cascais?" },
+        { label: "Boat this afternoon", question: "Can I go boating this afternoon?" },
+        { label: "Surf this weekend", question: "How will the surf be this weekend?" }
       ],
       pt: [
-        "Quero fazer surf amanhã na zona de Lisboa. Está bom?",
-        "Posso ir de barco esta tarde em Sesimbra?",
-        "Como vai estar a vela amanhã em Cascais?"
+        { label: "Surf · Lisboa", question: "Quero fazer surf amanhã na zona de Lisboa. Está bom?" },
+        { label: "Barco · Sesimbra", question: "Posso ir de barco esta tarde em Sesimbra?" },
+        { label: "Vela · Cascais", question: "Como vai estar a vela amanhã em Cascais?" }
       ]
     };
 
@@ -1338,12 +1489,34 @@
         .replace(/"/g, "&quot;");
     }
 
+    function setLocation(id, name, silent) {
+      document.getElementById("product-location").value = id;
+      document.getElementById("location-value").textContent = name;
+      document.querySelectorAll("#location-menu .picker-option").forEach(function (option) {
+        option.classList.toggle("active", option.getAttribute("data-id") === id);
+      });
+      closeLocationMenu();
+      if (!silent) loadExplore();
+    }
+
+    function closeLocationMenu() {
+      var picker = document.getElementById("location-picker");
+      picker.classList.remove("open");
+      document.getElementById("location-menu").hidden = true;
+      document.getElementById("location-trigger").setAttribute("aria-expanded", "false");
+    }
+
     function fillLocations() {
-      var select = document.getElementById("product-location");
-      select.innerHTML = LOCATIONS.map(function (item) {
-        var selected = item[0] === "loc-sesimbra" ? " selected" : "";
-        return "<option value=\"" + item[0] + "\"" + selected + ">" + item[1] + "</option>";
+      var menu = document.getElementById("location-menu");
+      menu.innerHTML = LOCATIONS.map(function (item) {
+        var active = item[0] === "loc-sesimbra" ? " active" : "";
+        return "<button type=\"button\" class=\"picker-option" + active + "\" role=\"option\" data-id=\"" + item[0] + "\">" + item[1] + "</button>";
       }).join("");
+      menu.querySelectorAll(".picker-option").forEach(function (option) {
+        option.addEventListener("click", function () {
+          setLocation(option.getAttribute("data-id"), option.textContent);
+        });
+      });
     }
 
     function setProductMode(mode) {
@@ -1361,10 +1534,11 @@
       ASK_EXAMPLES[currentLang].forEach(function (example) {
         var button = document.createElement("button");
         button.type = "button";
-        button.textContent = "“" + example + "”";
+        button.className = "ask-chip";
+        button.textContent = example.label;
         button.addEventListener("click", function () {
-          document.getElementById("ask-question").value = example;
-          submitAsk(example);
+          document.getElementById("ask-question").value = example.question;
+          submitAsk(example.question);
         });
         box.appendChild(button);
       });
@@ -1516,8 +1690,31 @@
           setProductMode(tab.getAttribute("data-mode"));
         });
       });
-      document.getElementById("product-location").addEventListener("change", loadExplore);
-      document.getElementById("product-activity").addEventListener("change", loadExplore);
+      document.getElementById("location-trigger").addEventListener("click", function () {
+        var menu = document.getElementById("location-menu");
+        var open = menu.hidden;
+        if (open) {
+          document.getElementById("location-picker").classList.add("open");
+          menu.hidden = false;
+          document.getElementById("location-trigger").setAttribute("aria-expanded", "true");
+        } else {
+          closeLocationMenu();
+        }
+      });
+      document.addEventListener("click", function (event) {
+        if (!document.getElementById("location-picker").contains(event.target)) {
+          closeLocationMenu();
+        }
+      });
+      document.querySelectorAll(".activity-pill").forEach(function (pill) {
+        pill.addEventListener("click", function () {
+          document.querySelectorAll(".activity-pill").forEach(function (item) {
+            item.classList.toggle("active", item === pill);
+          });
+          document.getElementById("product-activity").value = pill.getAttribute("data-activity");
+          loadExplore();
+        });
+      });
       document.getElementById("ask-form").addEventListener("submit", function (event) {
         event.preventDefault();
         submitAsk(document.getElementById("ask-question").value);
