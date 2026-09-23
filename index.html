@@ -485,22 +485,157 @@
       color: var(--text);
     }
 
-    .saas-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin: 1.6rem 0 0;
-      padding: 0;
-      list-style: none;
+    .product-shell {
+      margin-top: 1.75rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: clamp(1.25rem, 3vw, 2rem);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .saas-list li {
+    .product-tabs {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .product-tab {
       border: 1px solid var(--border);
-      background: var(--card-bg);
-      border-radius: 999px;
-      padding: 0.42rem 0.95rem;
-      font-size: 0.86rem;
+      background: transparent;
       color: var(--text-soft);
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font: inherit;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .product-tab.active {
+      border-color: rgba(92, 188, 255, 0.45);
+      background: rgba(92, 188, 255, 0.12);
+      color: var(--text);
+    }
+
+    .product-selects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .product-field label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--azure);
+      margin-bottom: 0.4rem;
+    }
+
+    .product-field select,
+    .product-field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(5, 11, 24, 0.55);
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 0.85rem;
+      font: inherit;
+    }
+
+    .product-field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .product-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .product-metric {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+    }
+
+    .product-metric dt {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .product-metric dd {
+      margin: 0.35rem 0 0;
+      font-size: 1.15rem;
+    }
+
+    .product-temp {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      margin: 0 0 0.4rem;
+    }
+
+    .suit-badge {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.28rem 0.75rem;
+      font-size: 0.85rem;
+      text-transform: capitalize;
+    }
+
+    .suit-badge.favourable { color: #9be7c4; border-color: rgba(155, 231, 196, 0.35); }
+    .suit-badge.limited, .suit-badge.marginal { color: #f3d48b; border-color: rgba(243, 212, 139, 0.35); }
+    .suit-badge.unsuitable { color: #f0a3a3; border-color: rgba(240, 163, 163, 0.35); }
+
+    .product-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 0.85rem;
+    }
+
+    .ask-examples {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .ask-examples button {
+      text-align: left;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-soft);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      font: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .ask-result, .explore-result {
+      margin-top: 1rem;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 700px) {
+      .product-selects,
+      .product-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .product-selects,
+      .product-metrics {
+        grid-template-columns: 1fr;
+      }
     }
 
     .mode-grid {
@@ -784,7 +919,7 @@
         <p data-i18n="waysP1">Azure AI is one philosophy, offered in more than one way.</p>
         <p data-i18n="waysP2">Some people need a clearer view of the sea. Some businesses need that same understanding inside their own systems.</p>
         <p data-i18n="waysP3">There are solutions for everyone. Some are free. Some are paid. All of them exist to support the decision. Not to replace the person who makes it.</p>
-        <p class="emphasis" data-i18n="waysP4">This site is the introduction. It is not the operational application.</p>
+        <p class="emphasis" data-i18n="waysP4">The skipper application is separate. The partner product is here.</p>
       </div>
     </div>
   </section>
@@ -795,19 +930,50 @@
       <span class="section-label" data-i18n="saasLabel">Partners</span>
       <h2 class="section-title" data-i18n="saasTitle">Azure Weather SaaS</h2>
       <div class="prose">
-        <p class="lead emphasis" data-i18n="saasLead">Your locations. Your activities. Your weather intelligence.</p>
-        <p data-i18n="saasP1">For clubs, operators and partners who need Azure inside their own product — through API, content and webhooks.</p>
-        <p data-i18n="saasP2">This is how partners connect. It is public for integration. It is not an internal operations desk.</p>
+        <p class="lead emphasis" data-i18n="saasLead">Your locations, your activities, your weather intelligence — inside your own product.</p>
       </div>
-      <ul class="saas-list">
-        <li data-i18n="saas1">Your locations</li>
-        <li data-i18n="saas2">Your activities</li>
-        <li data-i18n="saas3">Weather intelligence</li>
-        <li data-i18n="saas4">API</li>
-        <li data-i18n="saas5">Content</li>
-        <li data-i18n="saas6">Webhooks</li>
-        <li data-i18n="saas7">Partner integration</li>
-      </ul>
+
+      <div class="product-shell" id="azure-product">
+        <div class="product-tabs" role="tablist">
+          <button type="button" class="product-tab active" data-mode="explore" data-i18n="productExplore">Explore Weather</button>
+          <button type="button" class="product-tab" data-mode="ask" data-i18n="productAsk">Ask Azure</button>
+        </div>
+
+        <div id="explore-mode">
+          <p class="hero-desc" data-i18n="productExploreHint">Structured conditions. No AI.</p>
+          <div class="product-selects">
+            <div class="product-field">
+              <label for="product-location" data-i18n="productLocation">Location</label>
+              <select id="product-location"></select>
+            </div>
+            <div class="product-field">
+              <label for="product-activity" data-i18n="productActivity">Activity</label>
+              <select id="product-activity">
+                <option value="BOAT">Boat</option>
+                <option value="SAILING">Sailing</option>
+                <option value="SURF">Surf</option>
+                <option value="BODYBOARD">Bodyboard</option>
+                <option value="OUTDOOR">Outdoor</option>
+              </select>
+            </div>
+          </div>
+          <div id="explore-result" class="explore-result"></div>
+        </div>
+
+        <div id="ask-mode" hidden>
+          <p class="hero-desc" data-i18n="productAskHint">Ask in natural language, grounded on real intelligence.</p>
+          <form id="ask-form" class="product-field">
+            <label for="ask-question" data-i18n="productAskLabel">Question</label>
+            <textarea id="ask-question" data-i18n-placeholder="productAskPlaceholder" placeholder="Is tomorrow good for sailing in Cascais?"></textarea>
+            <div class="product-actions">
+              <button type="submit" class="btn btn-primary" data-i18n="productAskBtn">Ask Azure</button>
+            </div>
+          </form>
+          <p class="section-label" data-i18n="productTry">Try asking</p>
+          <div id="ask-examples" class="ask-examples"></div>
+          <div id="ask-result" class="ask-result"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -953,20 +1119,28 @@
         waysP1: "Azure AI is one philosophy, offered in more than one way.",
         waysP2: "Some people need a clearer view of the sea. Some businesses need that same understanding inside their own systems.",
         waysP3: "There are solutions for everyone. Some are free. Some are paid. All of them exist to support the decision. Not to replace the person who makes it.",
-        waysP4: "This site is the introduction. It is not the operational application.",
+        waysP4: "The skipper application is separate. The partner product is here.",
         contactLabel: "Contact",
         saasLabel: "Partners",
         saasTitle: "Azure Weather SaaS",
-        saasLead: "Your locations. Your activities. Your weather intelligence.",
-        saasP1: "For clubs, operators and partners who need Azure inside their own product — through API, content and webhooks.",
-        saasP2: "This is how partners connect. It is public for integration. It is not an internal operations desk.",
-        saas1: "Your locations",
-        saas2: "Your activities",
-        saas3: "Weather intelligence",
-        saas4: "API",
-        saas5: "Content",
-        saas6: "Webhooks",
-        saas7: "Partner integration",
+        saasLead: "Your locations, your activities, your weather intelligence — inside your own product.",
+        productExplore: "Explore Weather",
+        productAsk: "Ask Azure",
+        productExploreHint: "Structured conditions. No AI.",
+        productAskHint: "Ask in natural language, grounded on real intelligence.",
+        productLocation: "Location",
+        productActivity: "Activity",
+        productAskLabel: "Question",
+        productAskPlaceholder: "Is tomorrow good for sailing in Cascais?",
+        productAskBtn: "Ask Azure",
+        productTry: "Try asking",
+        productLoading: "Loading structured weather...",
+        productUnavailable: "Live data unavailable for this location.",
+        productError: "Structured weather could not be retrieved. Try again.",
+        productAskError: "Azure could not check the conditions. Try again.",
+        productNoAi: "No AI. Stored weather intelligence.",
+        productSuitability: "Activity suitability",
+        productIntelligence: "Intelligence",
         completeLabel: "Horizon",
         completeTitle: "Complete Mode",
         completeP1: "The same understanding, as complete as the work requires.",
@@ -1043,20 +1217,28 @@
         waysP1: "O Azure AI é uma só filosofia, oferecida de mais do que uma forma.",
         waysP2: "Há quem precise de uma leitura mais clara do mar. Há empresas que precisam dessa mesma compreensão dentro dos seus próprios sistemas.",
         waysP3: "Há soluções para todos. Algumas são livres. Outras são pagas. Todas existem para apoiar a decisão. Não para substituir quem a toma.",
-        waysP4: "Este sítio é a introdução. Não é a aplicação operacional.",
+        waysP4: "A aplicação do skipper é outra. O produto para parceiros está aqui.",
         contactLabel: "Contacto",
         saasLabel: "Parceiros",
         saasTitle: "Azure Weather SaaS",
-        saasLead: "Os vossos locais. As vossas actividades. A vossa inteligência meteorológica.",
-        saasP1: "Para clubes, operadores e parceiros que precisam do Azure dentro do seu próprio produto — por API, conteúdo e webhooks.",
-        saasP2: "É assim que os parceiros se ligam. É público para integração. Não é um posto de operações interno.",
-        saas1: "Os vossos locais",
-        saas2: "As vossas actividades",
-        saas3: "Inteligência meteorológica",
-        saas4: "API",
-        saas5: "Conteúdo",
-        saas6: "Webhooks",
-        saas7: "Integração de parceiros",
+        saasLead: "Os vossos locais, as vossas actividades, a vossa inteligência meteorológica — dentro do vosso próprio produto.",
+        productExplore: "Explore Weather",
+        productAsk: "Ask Azure",
+        productExploreHint: "Condições estruturadas. Sem IA.",
+        productAskHint: "Pergunte em linguagem natural, assente em inteligência real.",
+        productLocation: "Local",
+        productActivity: "Actividade",
+        productAskLabel: "Pergunta",
+        productAskPlaceholder: "Quero fazer surf amanhã na zona de Lisboa. Está bom?",
+        productAskBtn: "Ask Azure",
+        productTry: "Experimente perguntar",
+        productLoading: "A carregar meteorologia estruturada...",
+        productUnavailable: "Dados em directo indisponíveis para este local.",
+        productError: "Não foi possível obter a meteorologia estruturada. Tente novamente.",
+        productAskError: "O Azure não conseguiu verificar as condições. Tente novamente.",
+        productNoAi: "Sem IA. Inteligência meteorológica armazenada.",
+        productSuitability: "Adequação da actividade",
+        productIntelligence: "Inteligência",
         completeLabel: "Horizonte",
         completeTitle: "Modo Completo",
         completeP1: "A mesma compreensão, tão completa quanto o trabalho exigir.",
@@ -1083,7 +1265,14 @@
       }
     };
 
+    var currentLang = "en";
+
+    function t(key) {
+      return (translations[currentLang] && translations[currentLang][key]) || (translations.en[key] || key);
+    }
+
     function setLang(lang) {
+      currentLang = lang;
       document.documentElement.lang = lang === "pt" ? "pt-PT" : "en";
       document.getElementById("lang-en").classList.toggle("active", lang === "en");
       document.getElementById("lang-pt").classList.toggle("active", lang === "pt");
@@ -1091,9 +1280,253 @@
         var key = el.getAttribute("data-i18n");
         if (translations[lang][key]) el.textContent = translations[lang][key];
       });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n-placeholder");
+        if (translations[lang][key]) el.setAttribute("placeholder", translations[lang][key]);
+      });
+      renderAskExamples();
+    }
+
+    var AZURE_API = "https://hub.frontseaintelligence.com";
+    var LOCATIONS = [
+      ["loc-porto", "Porto"],
+      ["loc-viana", "Viana do Castelo"],
+      ["loc-matosinhos", "Matosinhos"],
+      ["loc-esposende", "Esposende"],
+      ["loc-figueira", "Figueira da Foz"],
+      ["loc-nazare", "Nazaré"],
+      ["loc-peniche", "Peniche"],
+      ["loc-supertubos", "Supertubos"],
+      ["loc-ericeira", "Ericeira"],
+      ["loc-lisbon", "Lisbon"],
+      ["loc-cna-alges", "CNA Algés"],
+      ["loc-cascais", "Cascais"],
+      ["loc-caparica", "Costa da Caparica"],
+      ["loc-sesimbra", "Sesimbra"],
+      ["loc-sines", "Sines"],
+      ["loc-milfontes", "Vila Nova de Milfontes"],
+      ["loc-porto-cova", "Porto Covo"],
+      ["loc-sagres", "Sagres"],
+      ["loc-lagos", "Lagos"],
+      ["loc-faro", "Faro"],
+      ["loc-albufeira", "Albufeira"],
+      ["loc-funchal", "Funchal"],
+      ["loc-porto-santo", "Porto Santo"],
+      ["loc-ponta-delgada", "Ponta Delgada"],
+      ["loc-horta", "Horta"]
+    ];
+    var ASK_EXAMPLES = {
+      en: [
+        "Is tomorrow good for sailing in Cascais?",
+        "Can I go boating this afternoon?",
+        "How will the surf be this weekend?"
+      ],
+      pt: [
+        "Quero fazer surf amanhã na zona de Lisboa. Está bom?",
+        "Posso ir de barco esta tarde em Sesimbra?",
+        "Como vai estar a vela amanhã em Cascais?"
+      ]
+    };
+
+    var exploreRequest = 0;
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function fillLocations() {
+      var select = document.getElementById("product-location");
+      select.innerHTML = LOCATIONS.map(function (item) {
+        var selected = item[0] === "loc-sesimbra" ? " selected" : "";
+        return "<option value=\"" + item[0] + "\"" + selected + ">" + item[1] + "</option>";
+      }).join("");
+    }
+
+    function setProductMode(mode) {
+      document.querySelectorAll(".product-tab").forEach(function (tab) {
+        tab.classList.toggle("active", tab.getAttribute("data-mode") === mode);
+      });
+      document.getElementById("explore-mode").hidden = mode !== "explore";
+      document.getElementById("ask-mode").hidden = mode !== "ask";
+    }
+
+    function renderAskExamples() {
+      var box = document.getElementById("ask-examples");
+      if (!box) return;
+      box.innerHTML = "";
+      ASK_EXAMPLES[currentLang].forEach(function (example) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "“" + example + "”";
+        button.addEventListener("click", function () {
+          document.getElementById("ask-question").value = example;
+          submitAsk(example);
+        });
+        box.appendChild(button);
+      });
+    }
+
+    function metricHtml(metrics) {
+      var usable = (metrics || []).filter(function (item) { return item && item.value != null; });
+      if (!usable.length) return "";
+      return "<dl class=\"product-metrics\">" + usable.map(function (item) {
+        return "<div class=\"product-metric\"><dt>" + escapeHtml(item.label) + "</dt><dd>" +
+          escapeHtml(item.value) + (item.unit ? " <span>" + escapeHtml(item.unit) + "</span>" : "") +
+          "</dd></div>";
+      }).join("") + "</dl>";
+    }
+
+    function loadExplore() {
+      var locationId = document.getElementById("product-location").value;
+      var activity = document.getElementById("product-activity").value;
+      var target = document.getElementById("explore-result");
+      var requestId = ++exploreRequest;
+      target.innerHTML = "<p>" + escapeHtml(t("productLoading")) + "</p>";
+
+      fetch(AZURE_API + "/api/azure-weather/explore?location=" + encodeURIComponent(locationId) + "&activity=" + encodeURIComponent(activity))
+        .then(function (response) {
+          return response.json().then(function (payload) {
+            return { ok: response.ok, payload: payload };
+          }).catch(function () {
+            return { ok: false, payload: null };
+          });
+        })
+        .then(function (result) {
+          if (requestId !== exploreRequest) return;
+          var view = result.payload && result.payload.view;
+          if (!view || view.state === "empty" || view.state === "unsupported") {
+            target.innerHTML = "<p>" + escapeHtml(t("productUnavailable")) + "</p>";
+            return;
+          }
+          if (!result.ok || view.state === "error") {
+            target.innerHTML = "<p>" + escapeHtml(t("productError")) + "</p>";
+            return;
+          }
+          var html = "";
+          if (view.location_label) {
+            html += "<p>" + escapeHtml(view.location_label) + (view.activity ? " · " + escapeHtml(view.activity) : "") + "</p>";
+          }
+          if (view.freshness && view.freshness.label) {
+            html += "<p>" + escapeHtml(view.freshness.label) + "</p>";
+          }
+          html += "<p>" + escapeHtml(t("productNoAi")) + "</p>";
+          if (view.temperature_c != null) {
+            html += "<p class=\"product-temp\">" + escapeHtml(view.temperature_c) + "°C</p>";
+          }
+          html += metricHtml(view.metrics);
+          html += "<p data-keep>" + escapeHtml(t("productSuitability")) + "</p>";
+          if (view.suitability_level) {
+            html += "<p><span class=\"suit-badge " + escapeHtml(view.suitability_level) + "\">" + escapeHtml(view.suitability_level) + "</span></p>";
+          }
+          if (view.explanation) {
+            html += "<p>" + escapeHtml(view.explanation) + "</p>";
+          }
+          target.innerHTML = html;
+        })
+        .catch(function () {
+          if (requestId !== exploreRequest) return;
+          target.innerHTML = "<p>" + escapeHtml(t("productUnavailable")) + "</p>";
+        });
+    }
+
+    function submitAsk(question) {
+      var target = document.getElementById("ask-result");
+      var text = (question || "").trim();
+      if (!text) return;
+      target.innerHTML = "<p>" + escapeHtml(t("productLoading")) + "</p>";
+      fetch(AZURE_API + "/api/azure-weather/ask", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ question: text })
+      })
+        .then(function (response) {
+          return response.json().then(function (payload) {
+            return { ok: response.ok, payload: payload };
+          }).catch(function () {
+            return { ok: false, payload: null };
+          });
+        })
+        .then(function (result) {
+          var view = result.payload && result.payload.view;
+          if (!view || view.state === "error") {
+            target.innerHTML = "<p>" + escapeHtml((view && view.explanation) || t("productAskError")) + "</p>";
+            return;
+          }
+          if (view.state === "clarification" && view.clarification) {
+            var html = "<p>" + escapeHtml(view.clarification.question) + "</p><div class=\"ask-examples\">";
+            (view.clarification.options || []).forEach(function (option) {
+              html += "<button type=\"button\" data-clarify=\"" + escapeHtml(option.id) + "\">" + escapeHtml(option.label) + "</button>";
+            });
+            html += "</div>";
+            target.innerHTML = html;
+            target.querySelectorAll("[data-clarify]").forEach(function (button) {
+              button.addEventListener("click", function () {
+                var field = view.clarification.field === "location" ? "location_hint" : "activity_hint";
+                var body = { question: text };
+                body[field] = button.getAttribute("data-clarify");
+                target.innerHTML = "<p>" + escapeHtml(t("productLoading")) + "</p>";
+                fetch(AZURE_API + "/api/azure-weather/ask", {
+                  method: "POST",
+                  headers: { "content-type": "application/json" },
+                  body: JSON.stringify(body)
+                }).then(function (response) { return response.json(); }).then(function (payload) {
+                  submitAsk._render(payload && payload.view, text);
+                }).catch(function () {
+                  target.innerHTML = "<p>" + escapeHtml(t("productAskError")) + "</p>";
+                });
+              });
+            });
+            return;
+          }
+          submitAsk._render(view, text);
+        })
+        .catch(function () {
+          target.innerHTML = "<p>" + escapeHtml(t("productAskError")) + "</p>";
+        });
+    }
+
+    submitAsk._render = function (view, text) {
+      var target = document.getElementById("ask-result");
+      if (!view) {
+        target.innerHTML = "<p>" + escapeHtml(t("productAskError")) + "</p>";
+        return;
+      }
+      var html = "";
+      if (view.interpretation) {
+        html += "<p>" + escapeHtml([view.interpretation.activity_label, view.interpretation.location_label, view.interpretation.period_label].filter(Boolean).join(" · ")) + "</p>";
+      }
+      if (view.intelligence_level) {
+        html += "<p>" + escapeHtml(t("productIntelligence")) + ": " + escapeHtml(view.intelligence_level) + "</p>";
+      }
+      if (view.explanation) html += "<p>" + escapeHtml(view.explanation) + "</p>";
+      if (view.answer) html += "<p>" + escapeHtml(view.answer) + "</p>";
+      html += metricHtml(view.metrics);
+      if (!html) html = "<p>" + escapeHtml(t("productAskError")) + "</p>";
+      target.innerHTML = html;
+    };
+
+    function initProduct() {
+      fillLocations();
+      document.querySelectorAll(".product-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          setProductMode(tab.getAttribute("data-mode"));
+        });
+      });
+      document.getElementById("product-location").addEventListener("change", loadExplore);
+      document.getElementById("product-activity").addEventListener("change", loadExplore);
+      document.getElementById("ask-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        submitAsk(document.getElementById("ask-question").value);
+      });
+      loadExplore();
     }
 
     setLang("en");
+    initProduct();
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
