@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Azure AI | Find Your Azure</title>
+  <title>Azure AI Weather | Find Your Azure</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Azure AI combines weather intelligence, marine forecasts and artificial intelligence to help mariners understand conditions at sea.">
+  <meta name="description" content="Azure AI Weather — weather intelligence for people and businesses connected to the sea.">
   <meta name="theme-color" content="#050b18">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,9 +98,18 @@
 
     .nav-brand span {
       font-family: var(--serif);
-      font-size: 1.35rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-brand small {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--azure);
     }
 
     .nav-right {
@@ -906,6 +915,22 @@
       color: var(--text-muted);
     }
 
+    .footer-brand {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin: 0 0 0.35rem;
+    }
+
+    .footer-ai {
+      max-width: 520px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0.75rem 0 0;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
       .features-grid {
@@ -939,8 +964,8 @@
 
   <nav class="nav">
     <a href="#top" class="nav-brand">
-      <img src="logo.jpeg" alt="Azure AI">
-      <span>AZURE AI</span>
+      <img src="logo.jpeg" alt="Azure AI Weather">
+      <span>AZURE AI WEATHER</span>
     </a>
     <div class="nav-right">
       <div class="lang-switch">
@@ -959,13 +984,13 @@
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
       <img src="logo.jpeg" alt="" class="hero-logo">
-      <h1>AZURE AI</h1>
+      <h1>AZURE AI WEATHER</h1>
       <p class="hero-tagline" data-i18n="tagline">Find Your Azure</p>
       <p class="hero-desc" data-i18n="heroLine1">Where sea, sky and decision come into balance.</p>
       <p class="hero-desc" data-i18n="heroLine2">Azure is the moment when understanding replaces uncertainty.</p>
       <div class="hero-actions">
-        <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="btnLaunch">Launch Azure AI</a>
         <a href="#search" class="btn btn-ghost" data-i18n="btnLearn">Learn More</a>
+        <a href="https://app.azureaiweather.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="btnLaunch">Launch Azure AI</a>
         <a href="#saas" class="btn btn-ghost" data-i18n="btnSaas">SaaS weather</a>
       </div>
     </div>
@@ -1102,7 +1127,7 @@
         </div>
 
         <div id="explore-mode">
-          <p class="hero-desc" data-i18n="productExploreHint">Structured conditions. No AI.</p>
+          <p class="hero-desc" data-i18n="productExploreHint">Structured weather intelligence. No AI.</p>
           <div class="product-selects">
             <div class="picker" id="location-picker">
               <span class="picker-kicker" data-i18n="productLocation">Location</span>
@@ -1129,7 +1154,7 @@
         </div>
 
         <div id="ask-mode" hidden>
-          <p class="hero-desc" data-i18n="productAskHint">Ask in natural language, grounded on real intelligence.</p>
+          <p class="hero-desc" data-i18n="productAskHint">AI-powered / natural-language</p>
           <form id="ask-form" class="ask-composer">
             <div class="ask-row">
               <input id="ask-question" type="text" autocomplete="off" data-i18n-placeholder="productAskPlaceholder" placeholder="Is tomorrow good for sailing in Cascais?">
@@ -1229,7 +1254,12 @@
             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
           </a>
         </div>
-        <p class="footer-copy">Azure AI © 2026</p>
+        <div>
+          <p class="footer-brand">Azure AI Weather</p>
+          <p class="footer-copy" data-i18n="footerOwner">Property of Frontsea Intelligence</p>
+          <p class="footer-copy"><a href="https://app.azureaiweather.com" target="_blank" rel="noopener" data-i18n="navLaunch">Launch App</a></p>
+          <p class="footer-ai" data-i18n="footerAi">Explore Weather is structured data. Ask Azure is a separate AI service. Partner differences are configuration, not a custom website.</p>
+        </div>
       </div>
     </div>
   </footer>
@@ -1296,8 +1326,8 @@
         saasLead: "Your locations, your activities, your weather intelligence — inside your own product.",
         productExplore: "Explore Weather",
         productAsk: "Ask Azure",
-        productExploreHint: "Structured conditions. No AI.",
-        productAskHint: "Ask in natural language, grounded on real intelligence.",
+        productExploreHint: "Structured weather intelligence. No AI.",
+        productAskHint: "AI-powered / natural-language",
         productLocation: "Location",
         productActivity: "Activity",
         productAskLabel: "Question",
@@ -1333,7 +1363,9 @@
         frontseaDesc: "FrontSea Intelligence develops maritime AI systems focused on weather, navigation and ocean intelligence. Azure AI is the first step in that journey.",
         frontseaLink: "frontseaintelligence.com →",
         ctaTitle: "Find Your Azure",
-        ctaDesc: "Every voyage begins with a decision. Know the sea. Understand the conditions."
+        ctaDesc: "Every voyage begins with a decision. Know the sea. Understand the conditions.",
+        footerOwner: "Property of Frontsea Intelligence",
+        footerAi: "Explore Weather is structured data. Ask Azure is a separate AI service. Partner differences are configuration, not a custom website."
       },
       pt: {
         navLaunch: "Abrir App",
@@ -1395,8 +1427,8 @@
         saasLead: "Os vossos locais, as vossas actividades, a vossa inteligência meteorológica — dentro do vosso próprio produto.",
         productExplore: "Explore Weather",
         productAsk: "Ask Azure",
-        productExploreHint: "Condições estruturadas. Sem IA.",
-        productAskHint: "Pergunte em linguagem natural, assente em inteligência real.",
+        productExploreHint: "Inteligência meteorológica estruturada. Sem IA.",
+        productAskHint: "Com IA / linguagem natural",
         productLocation: "Local",
         productActivity: "Actividade",
         productAskLabel: "Pergunta",
@@ -1432,7 +1464,9 @@
         frontseaDesc: "A FrontSea Intelligence desenvolve sistemas de IA marítima focados em meteorologia, navegação e inteligência oceânica. O Azure AI é o primeiro passo nessa jornada.",
         frontseaLink: "frontseaintelligence.com →",
         ctaTitle: "Find Your Azure",
-        ctaDesc: "Toda a viagem começa com uma decisão. Conheça o mar. Compreenda as condições."
+        ctaDesc: "Toda a viagem começa com uma decisão. Conheça o mar. Compreenda as condições.",
+        footerOwner: "Property of Frontsea Intelligence",
+        footerAi: "Explore Weather é dados estruturados. Ask Azure é um serviço de IA separado. As diferenças de parceiro são configuração, não um segundo sítio."
       }
     };
 
